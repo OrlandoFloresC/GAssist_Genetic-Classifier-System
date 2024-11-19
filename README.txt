@@ -1,3 +1,5 @@
+"This work is an update to Python 3 of the algorithm implemented by Ryan Urbanowicz in 2010, originally developed in Python 2. The algorithm was presented in the article "Genetic Classifier System as a heuristic weighting method for a Case-Based Classifier System". All copyright belongs to the authors of the original work." 
+
 GAssist_Genetic-Classifier-System, is a rule learning-based classification system that uses genetic algorithms to generate and optimize sets of classification rules
 
 If you want to try or use GAssist for your project follow these steps
