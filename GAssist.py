@@ -178,9 +178,35 @@ class GAssist:
         #popW.write("Testing Accuracy:\n") # Uncomment if you want to see the results in English (Descomentar si deseas ver los resultados en ingles)
         popW.write("Precisión de Testing:\n") # Uncomment if you want to see the results in Spanish (Descomentar si deseas ver los resultados en español)
         if CVPartition > 1:  # Print testing stats if CV has been utilized
-            popW.write(str(testEval[0]) + "\n")
-            #print(f"Testing Accuracy: {testEval[0]}") # Uncomment if you want to see the results in English (Descomentar si deseas ver los resultados en ingles)
-            print(f"Precisión de Testing: {testEval[0]}") # Uncomment if you want to see the results in Spanish (Descomentar si deseas ver los resultados en español)
+            inst = self.env.getTestSet()  # Obtener el conjunto de test
+            y_true = [int(instance[1]) for instance in inst]  # Convertir a enteros
+            y_pred = [int(bestAgent.classify(instance)) for instance in inst]  # Convertir a enteros
+            
+            # Calcular la matriz de confusión
+            matriz_confusion = confusion_matrix(y_true, y_pred)
+            print("Matriz de Confusión (Test Set):")
+            print(matriz_confusion)
+            
+            # Imprimir la matriz de confusión en el archivo
+            popW.write("Matriz de Confusión (Test Set):\n")
+            popW.write(str(matriz_confusion) + "\n")
+            
+            # Calcular métricas adicionales: Precisión, Recall y F1 Score
+            precision = precision_score(y_true, y_pred, pos_label=1)
+            recall = recall_score(y_true, y_pred, pos_label=1)
+            f1 = f1_score(y_true, y_pred, pos_label=1)
+            
+            # Imprimir las métricas adicionales
+            popW.write("Precisión de Testing:\n")
+            popW.write(str(precision) + "\n")
+            popW.write("Recall de Testing:\n")
+            popW.write(str(recall) + "\n")
+            popW.write("F1 Score de Testing:\n")
+            popW.write(str(f1) + "\n")
+            
+            print(f"Precisión de Testing: {precision}")
+            print(f"Recall de Testing: {recall}")
+            print(f"F1 Score de Testing: {f1}")
         else:
             popW.write("NA\n")
         popW.write("Population Characterization:\n")
